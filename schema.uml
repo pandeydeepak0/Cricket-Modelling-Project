@@ -1,0 +1,281 @@
+@startuml
+
+!define Table(name, fields) class name { fields }
+!define PK(field) field <b>(PK)</b>
+
+Table(Venue, 
+    city: string
+    name: string
+    venue_id: integer PK
+)
+
+Table(Team, 
+    Format: string
+    Prefix: string
+    team_id: integer PK
+    TeamImage: string
+    teamname: string
+)
+
+Table(Player, 
+    Battingtype: string
+    bowlingtype: string
+    DOB: date
+    Nationality: string
+    player_id: integer PK
+    playername: string
+    refPlayerID: integer
+    team_id: integer
+    team_name: string
+    WK: boolean
+)
+
+Table(Fixture, 
+    date: date
+    matchid: integer PK
+    matchno: integer
+    Matchtypeid: integer
+    stage: string
+    teama: string
+    teama_id: integer
+    teamb: string
+    teamb_id: integer
+    time_ist: time
+    venue: string
+    venue_id: integer
+)
+
+Table(BallByBall, 
+    BallID: integer PK
+    BallStopType: string
+    Batsman_InControl_OutControl: string
+    BatSubject: string
+    BatSubjectName: string
+    BattingClubID: integer
+    battingorder: integer
+    BattingType: string
+    BattingTypeID: integer
+    bowlerid: integer
+    bowlerName: string
+    BowlingClubID: integer
+    BowlingType: string
+    BowlingTypeID: integer
+    bowlSpeed: integer
+    CatchType: string
+    CatchType_Name: string
+    Creasemovement: string
+    CreaseMovementId: integer
+    DeliveryStyle: string
+    DeliveryStyleID: integer
+    Directhit: string
+    Directhit_name: string
+    DismissalFielderID1: integer
+    DismissalFielderID2: integer
+    dismissaltype: string
+    DismissalTypeId: integer
+    Dismissedplayer: integer
+    Dismissedplayer_name: string
+    EndID: integer
+    Extras: integer
+    extrastype: string
+    ExtrasTypeName: string
+    fieldPosition: integer
+    fieldPositionid: integer
+    HeightX: integer
+    HeightY: integer
+    InningsID: integer
+    InterceptionPoint_X: integer
+    InterceptionPoint_Y: integer
+    InTheair: string
+    isDRS: boolean
+    isfour: boolean
+    issix: boolean
+    IST: time
+    IsWicket: boolean
+    LengthX: integer
+    LengthY: integer
+    Lofted: boolean
+    MatchID: integer
+    MisRun: integer
+    MR_Fielderid: integer
+    MR_FielderName: string
+    nonstrikerid: integer
+    NonStrikerName: string
+    OnorOff: string
+    overid: integer
+    OverorRound: string
+    OverorRound_Name: string
+    overs: integer
+    OverThrowRuns: integer
+    PaceorSpin: string
+    PaceorSpin_name: string
+    Pitchmap: string
+    PowerSurge: boolean
+    ReleasePoint_X: integer
+    ReleasePoint_Y: integer
+    Runs: integer
+    saverun: integer
+    ShotConnection: string
+    ShotConnectionName: string
+    SixDistance: integer
+    SR_Fielder_Name: string
+    SR_Fielderid: integer
+    StrikerID: integer
+    StrikerName: string
+    Stroke: string
+    StrokeID: integer
+    subjecttag: string
+    SubjectTagName: string
+    SZ_Zone: string
+    umpire_name: string
+    umpireid: integer
+    WagonWheelX: integer
+    WagonWheelY: integer
+    WicketKeeper_Standing_position: string
+    WTO: string
+    Wto_Fielder: integer
+    Wto_Fielder_name: string
+    WTO_Name: string
+    wtoBatsman_name: string
+    wtoPlayer: string
+    WtoType: string
+    WtoType_Name: string
+    WW_Zone: string
+)
+
+Table(MatchInfo, 
+    1stinn_RevisedOvers: integer
+    1stInngBatClubId: integer
+    2ndinn_RevisedOvers: integer
+    ClubA: string
+    ClubB: string
+    CompetitionID: integer
+    DayOrnight: string
+    KnockOut: boolean
+    ManOftheMatch: string
+    MatchDate: date
+    Matchid: integer PK
+    MatchTypeID: integer
+    Result: string
+    RevisedTarget: integer
+    StadiumID: integer
+    Stage: string
+    Status: string
+    TossOpted: string
+    TossWin: string
+    WonClubid: integer
+)
+
+Table(Squad, 
+    BattingOrder: integer
+    Clubid: integer
+    isCaptain: boolean
+    isPlayed: boolean
+    isWK: boolean
+    PlayerID: integer
+)
+
+Table(SixDistance, 
+    ENDNAME: string
+    NextOne_CW_2: string
+    NextOne_CW_3: string
+    NextOne_CW_4: string
+    NextOne_CW_5: string
+    NextOne_CW_6: string
+    NextOne_CW_7: string
+    NextOne_CW_8: string
+    WKSide1: string
+)
+
+Table(Match, 
+    match_id: integer PK
+    match_no: integer
+    date: date
+    time_ist: time
+    stage: string
+    match_type_id: integer
+    result: string
+    status: string
+    man_of_the_match: string
+    revised_target: integer
+    day_or_night: string
+    knockout: boolean
+    toss_opted: string
+    toss_win: string
+    competition_id: integer
+    won_club_id: integer
+    stadium_id: integer
+    venue_id: integer
+)
+
+Table(BattingInnings, 
+    innings_id: integer PK
+    match_id: integer
+    team_id: integer
+    overs_batted: integer
+    total_runs: integer
+    total_wickets: integer
+)
+
+Table(BowlingInnings, 
+    innings_id: integer PK
+    match_id: integer
+    team_id: integer
+    overs_bowled: integer
+    total_runs_conceded: integer
+    total_wickets_taken: integer
+)
+
+Table(FallOfWicket, 
+    fall_of_wicket_id: integer PK
+    innings_id: integer
+    wicket_number: integer
+    batsman_name: string
+    runs_scored: integer
+    overs: integer
+)
+
+Table(Partnership, 
+    partnership_id: integer PK
+    innings_id: integer
+    partnership_runs: integer
+    partnership_overs: integer
+    partnership_details: string
+)
+
+Table(Extras, 
+    extras_id: integer PK
+    innings_id: integer
+    byes: integer
+    leg_byes: integer
+    wides: integer
+    no_balls: integer
+    penalties: integer
+)
+
+Table(LastWicket, 
+    last_wicket_id: integer PK
+    match_id: integer
+    batsman_name: string
+    batting_order: integer
+    dismissal_type: string
+    dismissal_details: string
+    runs_balls: string
+)
+
+Venue --|{ Fixture
+Team --|{ Player
+Fixture --|{ Match
+Team --|{ BallByBall
+Match --|{ MatchInfo
+Team --|{ Squad
+BallByBall --|{ SixDistance
+Match --|{ Match
+Match --|{ BattingInnings
+Match --|{ BowlingInnings
+BattingInnings --|{ FallOfWicket
+BattingInnings --|{ Partnership
+BowlingInnings --|{ Extras
+Match --|{ LastWicket
+
+@enduml

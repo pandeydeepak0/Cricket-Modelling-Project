@@ -1,0 +1,18 @@
+{
+   "Teams": [
+      {
+         "Format": "t20i",
+         "Prefix": "Eng",
+         "team_id": 22,
+         "TeamImage": "https://s3.amazonaws.com/api.cricket-21.com/CPL_Widget_Json/Team_Image/Intl/22_.png?v=0.1",
+         "teamname": "England"
+      },
+      {
+         "Format": "t20i",
+         "Prefix": "Pak",
+         "team_id": 25,
+         "TeamImage": "https://s3.amazonaws.com/api.cricket-21.com/CPL_Widget_Json/Team_Image/Intl/25_.png?v=0.1",
+         "teamname": "Pakistan"
+      }
+   ]
+}
