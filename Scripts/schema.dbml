@@ -1,0 +1,358 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Venue {
+  venue_id INTEGER [PRIMARY KEY]
+  city TEXT  
+  name TEXT
+}
+
+Table Team {
+  team_id INTEGE[PRIMARY KEY]
+  Format TEXT
+  Prefix TEXT
+  TeamImage TEXT
+  teamname TEXT
+}
+
+Table Squad {
+  MatchID INTEGER [pk]
+  Clubid INTEGER [pk]
+  PlayerID INTEGER [pk]
+  BattingOrder INTEGER
+  isCaptain TEXT
+  isPlayed INTEGER
+  isWK TEXT
+}
+
+Table Player {
+  player_id INTEGER [PRIMARY KEY]
+  team_id INTEGER
+  Battingtype TEXT
+  bowlingtype TEXT
+  DOB TEXT
+  Nationality TEXT
+  playername TEXT
+  refPlayerID INTEGER
+  team_name TEXT
+  WK INTEGER
+}
+
+Table Fixtures {
+  fixture_id INTEGER [PRIMARY KEY] //Use CompetitionID from MatchInfo
+  matchid INTEGER
+  date TEXT
+  matchno INTEGER
+  Matchtypeid INTEGER
+  stage TEXT
+  teama TEXT
+  teama_id INTEGER
+  teamb TEXT
+  teamb_id INTEGER
+  time_ist TEXT
+  venue TEXT
+  venue_id INTEGER
+}
+
+Table MatchInfo {
+  matchid INTEGER [PRIMARY KEY]
+  fixture_id INTEGER [ref: > Fixtures.fixture_id]
+  venue_id INTEGER [ref: > Venue.venue_id]
+  Firstinn_RevisedOvers INTEGER
+  FirstInngBatClubId INTEGER
+  Secondinn_RevisedOvers INTEGER
+  ClubA INTEGER
+  ClubB INTEGER
+  //CompetitionID  --- used as fixture_id
+  DayOrnight TEXT
+  KnockOut INTEGER
+  ManOftheMatch INTEGER
+  MatchDate TEXT
+  //Matchid INTEGER -- used as matchid
+  MatchTypeID INTEGER
+  Result TEXT
+  RevisedTarget INTEGER
+  //StadiumID --- used as venue_id 
+  Stage INTEGER
+  Status TEXT
+  TossOpted TEXT
+  TossWin INTEGER
+  WonClubid INTEGER
+}
+
+
+Table MatchDetails {
+  MatchID INTEGER [ref: > MatchInfo.matchid]
+  BatTeamName TEXT
+  BatTeamOvers TEXT
+  BatTeamRuns TEXT
+  BatTeamWkts TEXT
+  BwlTeamName TEXT
+  CurrentInningsNo TEXT
+  CurrentRunRate TEXT
+  MatchStatus TEXT
+  MaxOvers TEXT
+  Partnership TEXT
+  PrevOvers TEXT
+  RecentOvers TEXT
+  RemainingBalls TEXT
+  RemainingOvers TEXT
+  RequiredRunRate TEXT
+  RequiredRuns TEXT
+  State TEXT
+  Status TEXT
+  Target TEXT
+  TeamAReview TEXT
+  TeamBReview TEXT
+  Extra TEXT
+  Bowler1Name TEXT
+  Bowler1Econ TEXT
+  Bowler1Maidens TEXT
+  Bowler1Overs TEXT
+  Bowler1Runs TEXT
+  Bowler1Wickets TEXT
+  Bowler2Name TEXT
+  Bowler2Econ TEXT
+  Bowler2Maidens TEXT
+  Bowler2Overs TEXT
+  Bowler2Runs TEXT
+  Bowler2Wickets TEXT
+  Batsman1Name TEXT
+  Batsman1Balls TEXT
+  Batsman1Fours TEXT
+  Batsman1Score TEXT
+  Batsman1Sixes TEXT
+  Batsman1StrikeRate TEXT
+  Batsman2Name TEXT
+  Batsman2Balls TEXT
+  Batsman2Fours TEXT
+  Batsman2Score TEXT
+  Batsman2Sixes TEXT
+  Batsman2StrikeRate TEXT
+  LastWicketBatsman TEXT
+  LastWicketBattingOrder TEXT
+  LastWicketDismissal TEXT
+  LastWicketFallOfWicket TEXT
+  LastWicketRunsBalls TEXT
+}
+
+Table InningsDetails {
+  MatchID INTEGER [pk]
+  InningsNo INTEGER [pk]
+  BatTeam TEXT
+  BowlTeam TEXT
+  Declared TEXT
+  FallofWicketStr TEXT
+  FollowOn TEXT
+  TotalOvers TEXT
+  TotalRuns TEXT
+  TotalWickets TEXT
+  Extras text 
+}
+
+
+// Bowler_id, and fielder_id are not getting populated 
+// 
+Table BattingScorecard {
+  matchID INTEGER [pk]
+  inningsno INTEGER [pk]
+  player_id INTEGER [pk]
+  batteam TEXT
+  bowlteam TEXT
+  //id INTEGER --reused as player_id
+  balls INTEGER
+  _0s INTEGER
+  _1s INTEGER
+  _2s INTEGER
+  _3s INTEGER
+  _4s INTEGER
+  _5s INTEGER
+  _6s INTEGER
+  dismissal TEXT
+  runs INTEGER
+  sr REAL
+}
+
+Table BowlingScorecard {
+  matchID INTEGER [pk]
+  inningsno INTEGER [pk]
+  player_id INTEGER [pk]
+  batteam TEXT
+  bowlteam TEXT
+  boundary INTEGER
+  dot REAL //percent dot balls
+  dotball INTEGER
+  econ REAL
+  extras INTEGER
+  maiden INTEGER
+  nb INTEGER
+  overs REAL
+  runs INTEGER
+  six INTEGER
+  teamID INTEGER
+  wd INTEGER
+  wickets INTEGER
+  //wn TEXT - column not required as we have nb and wd columns
+}
+
+Table PartnershipCard {
+  matchID INTEGER  [pk]
+  inningsno INTEGER [pk]
+  player1_id INTEGER [pk] //Get from player table
+  player2_id INTEGER [pk] //Get from player table
+  player1name TEXT
+  player2name TEXT
+  batteam TEXT
+  bowlteam TEXT
+  followin TEXT 
+  balls1 INTEGER //gets from runs_balls_1
+  balls2 INTEGER //get from runs_balls_2
+  runs1 INTEGER
+  runs2 INTEGER
+  Runs_Balls_1 TEXT
+  Runs_Balls_2 TEXT
+  score TEXT
+  sr1 REAL
+  sr2 REAL
+  totalballs INTEGER //get from runs_balls_1 and runs_balls_2
+  totalruns INTEGER //get from runs_balls_1 and runs_ball_2
+  wkt2 TEXT
+}
+
+
+//Need to optimize on attributes - repetative info identified - stretchGoal
+Table BallByBall {
+  MatchID INTEGER [pk]
+  InningsID INTEGER [pk]
+  BallID INTEGER [pk]
+BallStopType TEXT
+BatsmanInControlOutControl TEXT
+BatSubject INTEGER
+BatSubjectName TEXT
+BattingClubID INTEGER
+BattingOrder INTEGER
+BattingType TEXT
+BattingTypeID INTEGER
+BowlerID INTEGER
+BowlerName TEXT
+BowlingClubID INTEGER
+BowlingType TEXT
+BowlingTypeID INTEGER
+BowlSpeed REAL
+CatchType TEXT
+CatchTypeName TEXT
+CreaseMovement TEXT
+CreaseMovementID INTEGER
+DeliveryStyle TEXT
+DeliveryStyleID INTEGER
+DirectHit TEXT
+DirectHitName TEXT
+DismissalFielderID1 INTEGER
+DismissalFielderID2 INTEGER
+DismissalType TEXT
+DismissalTypeID INTEGER
+DismissedPlayer TEXT
+DismissedPlayerName TEXT
+EndID TEXT
+Extras INTEGER
+ExtrasType INTEGER
+ExtrasTypeName TEXT
+FieldPosition TEXT
+FieldPositionID INTEGER
+HeightX INTEGER
+HeightY INTEGER
+InterceptionPointX INTEGER
+InterceptionPointY INTEGER
+InTheAir INTEGER
+IsDRS INTEGER
+IsFour INTEGER
+IsSix INTEGER
+ISTTime TEXT
+IsWicket INTEGER
+LengthX INTEGER
+LengthY INTEGER
+Lofted INTEGER
+MisRun INTEGER
+MRFielderID INTEGER
+MRFielderName TEXT
+NonStrikerID INTEGER
+NonStrikerName TEXT
+OnOrOff TEXT
+OverID INTEGER
+OverOrRound INTEGER
+OverOrRoundName TEXT
+Overs REAL
+OverThrowRuns INTEGER
+PaceOrSpin INTEGER
+PaceOrSpinName TEXT
+PitchmapZone INTEGER
+PowerSurge INTEGER
+ReleasePointX INTEGER
+ReleasePointY INTEGER
+Runs INTEGER
+SaveRun INTEGER
+ShotConnection INTEGER
+ShotConnectionName TEXT
+SixDistance REAL
+SRFielderName TEXT
+SRFielderID INTEGER
+StrikerID INTEGER
+StrikerName TEXT
+Stroke TEXT
+StrokeID INTEGER
+SubjectTag TEXT
+SubjectTagName TEXT
+SZZone INTEGER
+UmpireName TEXT
+UmpireID INTEGER
+WagonWheelX INTEGER
+WagonWheelY INTEGER
+WicketKeeperStandingPosition INTEGER
+WTO INTEGER
+WTOFielder TEXT
+WTOFielderName TEXT
+WTOName TEXT
+WTOBatsmanName TEXT
+WTOPlayer TEXT
+WTOType INTEGER
+WTOTypeName TEXT
+WWZone TEXT
+}
+
+
+
+Ref: "MatchInfo"."matchid" < "Squad"."MatchID"
+
+Ref: "Squad"."PlayerID" - "Player"."player_id"
+
+Ref: "Team"."team_id" < "Squad"."Clubid"
+
+Ref: "MatchInfo"."matchid" < "InningsDetails"."MatchID"
+
+Ref: "InningsDetails"."MatchID" < "BattingScorecard"."matchID"
+
+Ref: "InningsDetails"."InningsNo" < "BattingScorecard"."inningsno"
+
+Ref: "Player"."player_id" - "BattingScorecard"."player_id"
+
+Ref: "InningsDetails"."MatchID" < "BowlingScorecard"."matchID"
+
+Ref: "InningsDetails"."InningsNo" < "BowlingScorecard"."inningsno"
+
+Ref: "Player"."player_id" < "BowlingScorecard"."player_id"
+
+Ref: "InningsDetails"."MatchID" < "PartnershipCard"."matchID"
+
+Ref: "InningsDetails"."InningsNo" < "PartnershipCard"."inningsno"
+
+Ref: "Player"."player_id" - "PartnershipCard"."player1_id"
+
+Ref: "Player"."player_id" - "PartnershipCard"."player2_id"
+
+Ref: "MatchInfo"."matchid" < "BallByBall"."MatchID"
+
+Ref: "InningsDetails"."MatchID" < "InningsDetails"."Declared"
+
+Ref: "InningsDetails"."MatchID" < "BallByBall"."MatchID"
+
+Ref: "InningsDetails"."InningsNo" < "BallByBall"."InningsID"
