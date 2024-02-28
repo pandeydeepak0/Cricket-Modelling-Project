@@ -400,7 +400,7 @@ def insert_partnershipcard_data(conn, matchID, data):
 
 
 #Function to parse JSON and insert data into BallByBall table
-def insert_BallByBall_data(conn, ballbyball_data):
+def insert_ballbyball_data(conn, matchID, ballbyball_data):
     print("writing ballbyball data to DB")
 
     cursor = conn.cursor()
@@ -416,9 +416,9 @@ def insert_BallByBall_data(conn, ballbyball_data):
                             DeliveryStyle, DeliveryStyleID, DirectHit, DirectHitName, DismissalFielderID1,
                             DismissalFielderID2, DismissalType, DismissalTypeID, DismissedPlayer,
                             DismissedPlayerName, EndID, Extras, ExtrasType, ExtrasTypeName, FieldPosition,
-                            FieldPositionID, HeightX, HeightY, InningsID, InterceptionPointX, InterceptionPointY,
+                            FieldPositionID, HeightX, HeightY, InterceptionPointX, InterceptionPointY,
                             InTheAir, IsDRS, IsFour, IsSix, ISTTime, IsWicket, LengthX, LengthY, Lofted,
-                            MatchID, MisRun, MRFielderID, MRFielderName, NonStrikerID, NonStrikerName,
+                            MisRun, MRFielderID, MRFielderName, NonStrikerID, NonStrikerName,
                             OnOrOff, OverID, OverOrRound, OverOrRoundName, Overs, OverThrowRuns,
                             PaceOrSpin, PaceOrSpinName, PitchmapZone, PowerSurge, ReleasePointX,
                             ReleasePointY, Runs, SaveRun, ShotConnection, ShotConnectionName, SixDistance,
@@ -454,7 +454,7 @@ def insert_BallByBall_data(conn, ballbyball_data):
                                 ?,
                                 ?,
                                 ?,
-                                ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?)''',
+                                ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
                        (ball['MatchID'], ball['InningsID'], ball['BallID'], ball['BallStopType'], ball['Batsman InControl/OutControl'], ball['BatSubject'],
                         ball['BatSubjectName'], ball['BattingClubID'], ball['battingorder'], ball['BattingType'], ball['BattingTypeID'],
                         ball['bowlerid'], ball['bowlerName'], ball['BowlingClubID'], ball['BowlingType'], ball['BowlingTypeID'],
