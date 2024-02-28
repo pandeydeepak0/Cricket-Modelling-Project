@@ -37,7 +37,7 @@ def parse_and_insert_data(conn, file_path):
 
             db_dml.insert_squad_data(conn, matchID, ballbyball_data)
             db_dml.insert_matchinfo_data(conn, matchID, ballbyball_data)
-
+            db_dml.insert_ballbyball_data(conn, matchID, ballbyball_data)
 
 # Function to scan folders for JSON filepaths
 def parse_files_in_folder(folder_name):
