@@ -7,7 +7,7 @@
 >As a data science function we have scripts that ingest similar data to be used by our models. Implement a script(s) in a language of your choice to ingest the raw data and produce the tables in your data model. If you had more time, what adjustments or additions would you make to your ingestion script? 
 
 
-###### Ans: Based on the data model and schemas I has designed earlier, I created a script in Python to parse JSON and ingest data in SQLite3 database, Tables created-- 
+###### Ans: Based on the data model and schema I designed earlier, I created a script in Python to parse JSON and ingest data in SQLite3 database, Tables created-- 
     
     Venue: details of the stadium the series was played at
     Team: details of the teams involved in the series
@@ -22,7 +22,7 @@
     PartnershipCard: Partnership detatils of both innings 
     BallbyBall: Ball by Ball breakup of entire match
 
-###### The main code is writtin in ingestion.py and two helper modules `db_ddl` and `db_dml` were created to manage and modularize the code. Run with commands in `Scripts` folder- 
+###### The main code is writtin in ingestion.py and two helper modules `db_ddl` and `db_dml` were created to manage and modularize the code. To run, execute below given commands in `Scripts` folder- 
 
 ```
 pip install -r requirements.txt
